@@ -6,8 +6,12 @@ pipeline {
                 docker { image 'golang:1.11' }
             }
             steps {
-              go build -o bin/hello-server
-              go test -cover
+              sh '''
+                pwd
+                ls
+                go build -o bin/hello-server
+                go test -cover
+              '''
             }
     }
   }
