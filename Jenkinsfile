@@ -3,16 +3,14 @@ pipeline {
   stages {
     stage('build') {
             agent { 
-                docker { image 'node:8-alpine' }
+                docker { image 'golang:1.11' }
             }
             steps {
-                sh '''
-                    pwd
-                    yarn 
-                    yarn generate
-                    tar -cvf dist.tar dist
-                '''
-                archiveArtifacts artifacts: 'dist.tar', fingerprint: true
+              mkdir -p /go/src/github.com/rancher
+              ln -s `pwd` /go/src/github.com/rancher/pipeline-example-go
+              cd /go/src/github.com/rancher/pipeline-example-go
+              go build -o bin/hello-server
+              go test -cover
             }
     }
   }
