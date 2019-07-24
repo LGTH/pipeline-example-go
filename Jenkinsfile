@@ -23,7 +23,9 @@ go test -cover
     }
     stage('public') {
       steps {
-        sh '''docker build -t 192.168.56.150/test/pipeline-example-go:v1 .
+        sh '''pwd
+        ls
+        docker build -t 192.168.56.150/test/pipeline-example-go:v1 .
 docker push 192.168.56.150//test/pipeline-example-go:v1'''
       }
     }
